@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2021_03_08_015446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "orders", force: :cascade do |t|
+    t.string "external_code", null: false
+    t.integer "store_id", null: false
+    t.decimal "sub_total", null: false
+    t.decimal "delivery_fee", null: false
+    t.decimal "total_shipping", null: false
+    t.decimal "total", null: false
+    t.string "country", null: false
+    t.string "state", null: false
+    t.string "city", null: false
+    t.string "district", null: false
+    t.string "street", null: false
+    t.string "complement", null: false
+    t.decimal "latitude", precision: 10, scale: 6, null: false
+    t.decimal "longitude", precision: 10, scale: 6, null: false
+    t.datetime "dt_order_create", null: false
+    t.string "postal_code", null: false
+    t.integer "number", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
 end
