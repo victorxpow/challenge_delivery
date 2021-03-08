@@ -15,13 +15,12 @@ class OrderSerializer < ActiveModel::Serializer
   def latitude
     object.latitude.to_f
   end
-  
+
   def longitude
     object.longitude.to_f
   end
-  
+
   def total_shipping
     object.total_shipping.to_f
   end
-  
 end

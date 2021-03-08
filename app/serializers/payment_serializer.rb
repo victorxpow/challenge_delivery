@@ -5,5 +5,4 @@ class PaymentSerializer < ActiveModel::Serializer
   def value
     object.value.to_f
   end
-
 end

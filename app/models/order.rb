@@ -31,7 +31,6 @@ class Order < ApplicationRecord
             :number, presence: true
 
   def number
-    "0"
+    '0'
   end
-  
 end

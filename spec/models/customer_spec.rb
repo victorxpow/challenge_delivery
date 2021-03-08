@@ -12,5 +12,4 @@ RSpec.describe Customer, type: :model do
     it { is_expected.to validate_presence_of(:area_code) }
     it { is_expected.to validate_presence_of(:number) }
   end
-
 end

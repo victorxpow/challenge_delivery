@@ -14,5 +14,4 @@ class ItemSerializer < ActiveModel::Serializer
   def total
     object.total.to_f
   end
-
 end
