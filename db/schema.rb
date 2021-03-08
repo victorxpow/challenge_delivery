@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_015446) do
+ActiveRecord::Schema.define(version: 2021_03_08_021855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "customers", force: :cascade do |t|
+    t.string "external_code", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "area_code", null: false
+    t.string "number", null: false
+    t.bigint "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_customers_on_order_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "external_code"
+    t.string "name"
+    t.decimal "price"
+    t.integer "quantity"
+    t.decimal "total"
+    t.bigint "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_items_on_order_id"
+  end
 
   create_table "orders", force: :cascade do |t|
     t.string "external_code", null: false
@@ -37,4 +61,16 @@ ActiveRecord::Schema.define(version: 2021_03_08_015446) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.string "type"
+    t.decimal "value"
+    t.bigint "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_payments_on_order_id"
+  end
+
+  add_foreign_key "customers", "orders"
+  add_foreign_key "items", "orders"
+  add_foreign_key "payments", "orders"
 end
