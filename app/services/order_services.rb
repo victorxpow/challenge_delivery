@@ -4,15 +4,14 @@ class OrderServices < ApplicationService
 
   URL = URI(ENV['API_URL'])
 
-  
   def call(data)
     response = connection.request(request(data.to_json))
-    
+
     response.code == '200'
   end
-  
+
   private
-  
+
   def request(body)
     req = Net::HTTP::Post.new(URL)
     req['Content-Type'] = 'application/json'
@@ -20,7 +19,7 @@ class OrderServices < ApplicationService
     req.body = body
     req
   end
-  
+
   def connection
     http = Net::HTTP.new(URL.host, URL.port)
     http.use_ssl = true

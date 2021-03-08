@@ -1,3 +1,5 @@
 POSTGRES_HOST=db
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=
+
+API_URL=https://delivery-center-recruitment-ap.herokuapp.com/

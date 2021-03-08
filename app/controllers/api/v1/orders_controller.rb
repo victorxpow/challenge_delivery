@@ -12,10 +12,10 @@ class Api::V1::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    order_serialized = ActiveModelSerializers::SerializableResource.new(@order, {serializer: OrderSerializer}).as_json
+    order_serialized = ActiveModelSerializers::SerializableResource.new(@order, { serializer: OrderSerializer })
 
     if @order.save
-      return render json: @order, status: :created if OrderServices.call(order_serialized)
+      render json: @order, status: :created if OrderServices.call(order_serialized)
     else
       render json: @order.errors, status: :unprocessable_entity
     end
@@ -55,7 +55,7 @@ class Api::V1::OrdersController < ApplicationController
     order_params[:street] = order_params[:shipping][:receiver_address].delete :street_name
     order_params[:latitude] = order_params[:shipping][:receiver_address].delete :latitude
     order_params[:longitude] = order_params[:shipping][:receiver_address].delete :longitude
-    order_params[:complement] = order_params[:shipping][:receiver_address].delete :complement
+    order_params[:complement] = order_params[:shipping][:receiver_address].delete :comment
     order_params[:postal_code] = order_params[:shipping][:receiver_address].delete :zip_code
 
     order_params[:shipping][:receiver_address].delete :state

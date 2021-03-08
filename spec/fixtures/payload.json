@@ -53,6 +53,7 @@
         "name": "Cidade de Testes"
       },
       "state": {
+          "id": "SP",
         "name": "São Paulo"
       },
       "country": {
