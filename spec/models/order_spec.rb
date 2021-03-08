@@ -28,6 +28,5 @@ RSpec.describe Order, type: :model do
     it { is_expected.to validate_presence_of(:complement) }
     it { is_expected.to validate_presence_of(:dt_order_create) }
     it { is_expected.to validate_presence_of(:postal_code) }
-    it { is_expected.to validate_presence_of(:number) }
   end
 end

@@ -12,9 +12,10 @@ class Api::V1::OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    order_serialized = ActiveModelSerializers::SerializableResource.new(@order, {serializer: OrderSerializer}).as_json
 
     if @order.save
-      render json: @order, status: :created
+      return render json: @order, status: :created if OrderServices.call(order_serialized)
     else
       render json: @order.errors, status: :unprocessable_entity
     end
