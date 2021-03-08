@@ -29,4 +29,9 @@ class Order < ApplicationRecord
             :dt_order_create,
             :postal_code,
             :number, presence: true
+
+  def number
+    "0"
+  end
+  
 end
