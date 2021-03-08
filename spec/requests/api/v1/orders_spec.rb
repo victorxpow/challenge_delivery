@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Orders", type: :request do
+RSpec.describe 'Orders', type: :request do
   describe 'POST #create' do
     context 'sucessfully' do
-      let(:params) { { foo: 'bar'} }
+      let(:params) { { foo: 'bar' } }
 
       before { post api_v1_orders_path, params: params }
 
