@@ -1,4 +1,6 @@
 class Api::V1::OrdersController < ApplicationController
+  before_action :create_order
+
   wrap_parameters :order, include: %i[id
                                       store_id
                                       date_created
@@ -11,20 +13,26 @@ class Api::V1::OrdersController < ApplicationController
                                       buyer]
 
   def create
-    @order = Order.new(order_params)
     order_serialized = ActiveModelSerializers::SerializableResource.new(@order, { serializer: OrderSerializer })
 
-    if @order.save
-      render json: @order, status: :created if OrderServices.call(order_serialized)
+    if OrderServices.call(order_serialized)
+      render status: :created 
     else
-      render json: @order.errors, status: :unprocessable_entity
+      render status: :service_unavailable
     end
   end
 
   private
 
+  def create_order
+    @order = Order.create!(order_params)
+  end
+  
   def order_params
-    order_params = params.require(:order).permit(parameters)
+    if params.empty?
+      render status: :unprocessable_entity 
+    else
+      order_params = params.require(:order).permit(parameters)
 
     order_params[:external_code] = order_params.delete :id
     order_params[:sub_total] = order_params.delete :total_amount
@@ -75,6 +83,7 @@ class Api::V1::OrdersController < ApplicationController
     order_params[:customer_attributes].delete :phone
 
     order_params.permit!
+  end
   end
 
   def parameters

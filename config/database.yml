@@ -86,4 +86,3 @@ production:
   <<: *default
   database: challenge_delivery_production
   username: challenge_delivery
-  password: <%= ENV['CHALLENGE_DELIVERY_DATABASE_PASSWORD'] %>
